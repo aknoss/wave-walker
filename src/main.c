@@ -1,19 +1,8 @@
-#include "raylib.h"
-#include "screens.h"
+#include "main.h"
 
 #if defined(PLATFORM_WEB)
 #include <emscripten/emscripten.h>
 #endif
-
-Font font = {0};
-
-static const int screenWidth = 1080;
-static const int screenHeight = 720;
-
-void Initialization(void);
-void GameLoop(void);
-void DrawScreen(void);
-void Cleanup(void);
 
 int main(void) {
   Initialization();
@@ -26,7 +15,7 @@ int main(void) {
 
 void Initialization(void) {
   InitWindow(screenWidth, screenHeight, "rayne");
-  InitGameplayScreen();
+  InitGameScreen();
 }
 
 void GameLoop(void) {
@@ -44,12 +33,12 @@ void GameLoop(void) {
 void DrawScreen(void) {
   BeginDrawing();
   ClearBackground(RAYWHITE);
-  DrawGameplayScreen();
+  DrawGameScreen();
   EndDrawing();
 }
 
 void Cleanup(void) {
-  UnloadGameplayScreen();
+  UnloadGameScreen();
   UnloadFont(font);
   CloseWindow();
 }
