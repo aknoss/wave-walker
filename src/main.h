@@ -7,5 +7,5 @@ static const int screenHeight = 720;
 
 void Initialization(void);
 void GameLoop(void);
-void DrawScreen(void);
+void UpdateDrawScreen(void);
 void Cleanup(void);
