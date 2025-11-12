@@ -12,44 +12,46 @@ Sound fxCoin = {0};
 static const int screenWidth = 1080;
 static const int screenHeight = 720;
 
-static void UpdateDrawFrame(void);
+void Initialization(void);
+void GameLoop(void);
+void DrawScreen(void);
+void Cleanup(void);
 
 int main(void) {
+  Initialization();
+
+  GameLoop();
+
+  Cleanup();
+  return 0;
+}
+
+void Initialization(void) {
   InitWindow(screenWidth, screenHeight, "rayne");
-
-  InitAudioDevice();
-
-  font = LoadFont("resources/mecha.png");
-  fxCoin = LoadSound("resources/coin.wav");
-
-  SetMusicVolume(music, 1.0f);
-  PlayMusicStream(music);
-
   InitGameplayScreen();
+}
 
+void GameLoop(void) {
 #if defined(PLATFORM_WEB)
-  emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
+  emscripten_set_main_loop(DrawScreen, 60, 1);
 #else
   SetTargetFPS(60);
 
   while (!WindowShouldClose()) {
-    UpdateDrawFrame();
+    DrawScreen();
   }
 #endif
-
-  UnloadGameplayScreen();
-  UnloadFont(font);
-  UnloadMusicStream(music);
-  UnloadSound(fxCoin);
-  CloseAudioDevice();
-  CloseWindow();
-
-  return 0;
 }
 
-static void UpdateDrawFrame(void) {
+void DrawScreen(void) {
   BeginDrawing();
   ClearBackground(RAYWHITE);
   DrawGameplayScreen();
   EndDrawing();
+}
+
+void Cleanup(void) {
+  UnloadGameplayScreen();
+  UnloadFont(font);
+  CloseWindow();
 }
