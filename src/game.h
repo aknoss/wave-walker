@@ -4,6 +4,7 @@
 #ifndef SCREENS_H
 #define SCREENS_H
 
+typedef Rectangle Collider;
 extern Font font;
 
 void InitGameScreen(void);
