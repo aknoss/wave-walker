@@ -1,8 +1,7 @@
-
 #include "raylib.h"
 
-#ifndef SCREENS_H
-#define SCREENS_H
+#ifndef GAME_H
+#define GAME_H
 
 typedef Rectangle Collider;
 extern Font font;
@@ -13,4 +12,4 @@ void DrawGameScreen(void);
 void UnloadGameScreen(void);
 int FinishGameScreen(void);
 
-#endif // SCREENS_H
+#endif // GAME_H
