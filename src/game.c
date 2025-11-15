@@ -3,8 +3,8 @@
 #include <stdbool.h>
 
 static int finishScreen = 0;
-struct Player player;
-struct Object ground;
+Player player;
+Object ground;
 bool isPlayerOnGround;
 
 void DrawLevel1(void) { DrawRectangleRec(ground.collider, BROWN); }
@@ -13,8 +13,15 @@ void InitGameScreen(void) {
   finishScreen = 0;
   isPlayerOnGround = false;
 
-  player.collider = (Collider){100, 400, 40, 80};
-  ground.collider = (Collider){0, GetScreenHeight() - 40, GetScreenWidth(), 40};
+  player.position = (Vector2){100, 400};
+  player.collider = (Rectangle){player.position.x, player.position.y, 40, 80};
+  ground.collider =
+      (Rectangle){0, GetScreenHeight() - 40, GetScreenWidth(), 40};
+}
+
+void UpdateCollider(Player *player) {
+  player->collider.x = player->position.x;
+  player->collider.y = player->position.y;
 }
 
 void UpdateGameScreen(void) {
@@ -26,20 +33,21 @@ void UpdateGameScreen(void) {
     isPlayerOnGround = false;
   }
   if (IsKeyDown(KEY_RIGHT)) {
-    player.collider.x += 500 * deltaTime;
+    player.position.x += 500 * deltaTime;
   }
   if (IsKeyDown(KEY_LEFT)) {
-    player.collider.x -= 500 * deltaTime;
+    player.position.x -= 500 * deltaTime;
   }
   if (IsKeyDown(KEY_SPACE)) {
-    player.collider.y = 40;
+    player.position.y = 40;
   }
   if (IsKeyDown(KEY_UP)) {
-    player.collider.y -= 2000 * deltaTime;
+    player.position.y -= 2000 * deltaTime;
   }
   if (!isPlayerOnGround) {
-    player.collider.y += 1000 * deltaTime;
+    player.position.y += 1000 * deltaTime;
   }
+  UpdateCollider(&player);
 }
 
 void DrawGameScreen(void) {

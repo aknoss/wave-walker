@@ -4,12 +4,6 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-struct Player {
-  Collider collider;
-};
-struct Object {
-  Collider collider;
-};
 Font font = {0};
 static const int screenWidth = 1080;
 static const int screenHeight = 720;
