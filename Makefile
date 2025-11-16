@@ -3,10 +3,9 @@ RAYLIB_VERSION = 5.0
 all: raylib game
 
 raylib:
-	git clone https://github.com/raysan5/raylib vendor/raylib || true
+	git clone https://github.com/raysan5/raylib vendor/raylib 
 	cd vendor/raylib && git checkout $(RAYLIB_VERSION)
-	mkdir vendor/raylib/build
-	$(MAKE) -C vendor/raylib/src PLATFORM=PLATFORM_DESKTOP RAYLIB_BUILD_DIR=$(abspath vendor/raylib/build)
+	$(MAKE) -C vendor/raylib/src PLATFORM=PLATFORM_DESKTOP 
 
 game:
 	mkdir build
