@@ -3,11 +3,12 @@
 #ifndef GAME_H
 #define GAME_H
 
-typedef struct Player {
+typedef struct {
   Vector2 position;
   Rectangle collider;
+  int velocity;
 } Player;
-typedef struct Object {
+typedef struct {
   Rectangle collider;
 } Object;
 extern Font font;

@@ -32,20 +32,15 @@ void UpdateGameScreen(void) {
   } else {
     isPlayerOnGround = false;
   }
-  if (IsKeyDown(KEY_RIGHT)) {
-    player.position.x += 500 * deltaTime;
+  if (isPlayerOnGround && IsKeyDown(KEY_SPACE)) {
+    player.velocity = 4500;
   }
-  if (IsKeyDown(KEY_LEFT)) {
-    player.position.x -= 500 * deltaTime;
-  }
-  if (IsKeyDown(KEY_SPACE)) {
-    player.position.y = 40;
-  }
-  if (IsKeyDown(KEY_UP)) {
-    player.position.y -= 2000 * deltaTime;
+  if (player.velocity > 0) {
+    player.position.y -= player.velocity * deltaTime;
+    player.velocity -= 200;
   }
   if (!isPlayerOnGround) {
-    player.position.y += 1000 * deltaTime;
+    player.position.y += 600 * deltaTime;
   }
   UpdateCollider(&player);
 }
