@@ -5,7 +5,7 @@
 static int finishScreen = 0;
 Player player;
 EnemyWave *waves;
-Object ground;
+Ground ground;
 bool isPlayerOnGround;
 
 void DrawLevel1(void) { DrawRectangleRec(ground.collider, BROWN); }

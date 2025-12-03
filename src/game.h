@@ -8,14 +8,16 @@ typedef struct {
   Rectangle collider;
   int velocity;
 } Player;
+
 typedef struct {
   Vector2 position;
   Rectangle collider;
   int velocity;
 } EnemyWave;
+
 typedef struct {
   Rectangle collider;
-} Object;
+} Ground;
 extern Font font;
 
 void InitGameScreen(void);
