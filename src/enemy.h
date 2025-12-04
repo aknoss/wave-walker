@@ -20,7 +20,7 @@ typedef struct EnemyQueue {
   EnemyNode *rear;
 } EnemyQueue;
 
-EnemyQueue *newQueue();
+EnemyQueue *newQueue(void);
 EnemyNode *newNode(Enemy);
 bool isQueueEmpty(EnemyQueue *);
 void enqueue(EnemyQueue *, Enemy);

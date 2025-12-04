@@ -1,18 +1,22 @@
 #include "game.h"
+#include "enemy.h"
 #include "raylib.h"
 #include <stdbool.h>
 
 static int finishScreen = 0;
 Player player;
-EnemyWave *waves;
 Ground ground;
 bool isPlayerOnGround;
+EnemyQueue *enemyQueue;
+double timeElapsed;
+double lastTrigger = 0;
 
 void DrawLevel1(void) { DrawRectangleRec(ground.collider, BROWN); }
 
 void InitGameScreen(void) {
   finishScreen = 0;
   isPlayerOnGround = false;
+  enemyQueue = newQueue();
 
   player.position = (Vector2){100, 400};
   player.collider = (Rectangle){player.position.x, player.position.y, 40, 80};
@@ -27,6 +31,11 @@ void UpdateCollider(Player *player) {
 
 void UpdateGameScreen(void) {
   float deltaTime = GetFrameTime();
+  timeElapsed += deltaTime;
+  if (timeElapsed - lastTrigger >= 3.0) {
+    TraceLog(LOG_ERROR, "%f", timeElapsed);
+    lastTrigger = timeElapsed;
+  }
 
   if (CheckCollisionRecs(ground.collider, player.collider)) {
     isPlayerOnGround = true;

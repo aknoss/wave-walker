@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-EnemyQueue *newQueue() {
+EnemyQueue *newQueue(void) {
   EnemyQueue *q = (EnemyQueue *)malloc(sizeof(EnemyQueue));
   q->front = q->rear = NULL;
   q->size = 0;

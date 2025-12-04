@@ -10,12 +10,6 @@ typedef struct {
 } Player;
 
 typedef struct {
-  Vector2 position;
-  Rectangle collider;
-  int velocity;
-} EnemyWave;
-
-typedef struct {
   Rectangle collider;
 } Ground;
 extern Font font;
