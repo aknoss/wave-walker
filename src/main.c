@@ -14,6 +14,7 @@ int main(void) {
 }
 
 void Initialization(void) {
+  SetTraceLogLevel(LOG_DEBUG);
   InitWindow(screenWidth, screenHeight, "rayne");
   InitGameScreen();
 }
