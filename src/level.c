@@ -24,8 +24,8 @@ void loadLevel(EnemyQueue *enemyQueue, const char *levelPath) {
     line[strcspn(line, "\n")] = 0;
 
     char *t1 = strtok(line, ",");
-    char *t2 = strtok(line, ",");
-    char *t3 = strtok(line, ",");
+    char *t2 = strtok(NULL, ",");
+    char *t3 = strtok(NULL, ",");
 
     if (!t1 || !t2 || !t3) {
       TraceLog(LOG_ERROR, "Invalid row, skipping\n");
@@ -35,5 +35,6 @@ void loadLevel(EnemyQueue *enemyQueue, const char *levelPath) {
     float height = strtof(t1, NULL);
     float velocity = strtof(t2, NULL);
     float timeToSpawn = strtof(t3, NULL);
+    TraceLog(LOG_DEBUG, "%f, %f, %f", height, velocity, timeToSpawn);
   }
 }

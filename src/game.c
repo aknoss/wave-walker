@@ -1,5 +1,6 @@
 #include "game.h"
 #include "enemy.h"
+#include "level.h"
 #include "raylib.h"
 #include <stdbool.h>
 
@@ -17,6 +18,7 @@ void InitGameScreen(void) {
   finishScreen = 0;
   isPlayerOnGround = false;
   enemyQueue = newQueue();
+  loadLevel(enemyQueue, LEVEL_1_PATH);
 
   player.position = (Vector2){100, 400};
   player.collider = (Rectangle){player.position.x, player.position.y, 40, 80};
