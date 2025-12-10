@@ -1,4 +1,4 @@
-RAYLIB_VERSION = 5.5
+RAYLIB_VERSION = 5.0
 
 all: raylib game
 
