@@ -47,11 +47,11 @@ void UpdateGameScreen(void) {
     isPlayerOnGround = false;
   }
   if (isPlayerOnGround && IsKeyDown(KEY_SPACE)) {
-    player.velocity = 4500;
+    player.velocity = 2500;
   }
   if (player.velocity > 0) {
     player.position.y -= player.velocity * deltaTime;
-    player.velocity -= 200;
+    player.velocity -= 3000 * deltaTime;
   }
   if (!isPlayerOnGround) {
     player.position.y += 600 * deltaTime;
