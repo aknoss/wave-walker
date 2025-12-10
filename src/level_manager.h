@@ -1,5 +1,5 @@
-#ifndef LEVEL_H
-#define LEVEL_H
+#ifndef LEVEL_MANAGER_H
+#define LEVEL_MANAGER_H
 
 #include "enemy.h"
 
@@ -9,4 +9,4 @@
 
 void loadLevel(EnemyQueue *, const char *levelPath);
 
-#endif // LEVEL_H
+#endif // LEVEL_MANAGER_H
