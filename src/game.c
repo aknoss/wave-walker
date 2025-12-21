@@ -13,7 +13,6 @@ EnemyQueue *enemyQueue;
 double timeElapsed;
 double lastTrigger = 0;
 Level *currentLevel;
-extern Level level_1;
 int currentEnemyIndex = 0;
 
 void DrawLevel1(void) { DrawRectangleRec(ground.collider, BROWN); }
@@ -30,16 +29,27 @@ void InitGameScreen(void) {
       (Rectangle){0, GetScreenHeight() - 40, GetScreenWidth(), 40};
 }
 
-void UpdateCollider(Player *player) {
+void UpdatePlayerCollider(Player *player) {
   player->collider.x = player->position.x;
   player->collider.y = player->position.y;
+}
+
+void MoveEnemies(EnemyQueue *enemyQueue, float deltaTime) {
+  for (EnemyNode *enemyNode = enemyQueue->front; enemyNode != NULL;
+       enemyNode = enemyNode->next) {
+    TraceLog(LOG_DEBUG, "TEst");
+    enemyNode->enemy->position.x +=
+        (float)enemyNode->enemy->velocity * deltaTime;
+    enemyNode->enemy->collider.x = enemyNode->enemy->position.x;
+  }
 }
 
 void UpdateGameScreen(void) {
   float deltaTime = GetFrameTime();
   timeElapsed += deltaTime;
+
   if ((timeElapsed - lastTrigger >= currentLevel->time_to_spawn) &&
-      currentEnemyIndex < currentLevel->enemyCount) {
+      currentEnemyIndex < currentLevel->enemy_count) {
     EnemyRaw *enemyRaw = &currentLevel->enemies[currentEnemyIndex];
     Enemy *enemy = (Enemy *)malloc(sizeof(Enemy));
 
@@ -67,12 +77,18 @@ void UpdateGameScreen(void) {
   if (!isPlayerOnGround) {
     player.position.y += 600 * deltaTime;
   }
-  UpdateCollider(&player);
+  MoveEnemies(enemyQueue, deltaTime);
+  UpdatePlayerCollider(&player);
 }
 
 void DrawGameScreen(void) {
   DrawLevel1();
   DrawRectangleRec(player.collider, RED);
+
+  for (EnemyNode *enemyNode = enemyQueue->front; enemyNode != NULL;
+       enemyNode = enemyNode->next) {
+    DrawRectangleRec(enemyNode->enemy->collider, BLUE);
+  }
 }
 
 void UnloadGameScreen(void) {

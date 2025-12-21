@@ -9,7 +9,7 @@ raylib:
 
 game:
 	mkdir -p build
-	gcc src/*.c \
+	gcc src/*.c src/**/*.c \
 		-Ivendor/raylib/src \
 		-Lvendor/raylib/src \
 		-lraylib \

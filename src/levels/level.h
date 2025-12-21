@@ -8,10 +8,10 @@ typedef struct {
 
 typedef struct {
   EnemyRaw *enemies;
-  const int enemyCount;
+  const int enemy_count;
   const float time_to_spawn;
 } Level;
 
-Level level_1;
+extern Level level_1;
 
 #endif // LEVEL_H
