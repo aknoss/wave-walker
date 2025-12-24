@@ -6,7 +6,7 @@
 typedef struct {
   Vector2 position;
   Rectangle collider;
-  int velocity;
+  float velocity;
 } Enemy;
 
 typedef struct EnemyNode {

@@ -37,8 +37,7 @@ void UpdatePlayerCollider(Player *player) {
 void MoveEnemies(EnemyQueue *enemyQueue, float deltaTime) {
   for (EnemyNode *enemyNode = enemyQueue->front; enemyNode != NULL;
        enemyNode = enemyNode->next) {
-    TraceLog(LOG_DEBUG, "TEst");
-    enemyNode->enemy->position.x +=
+    enemyNode->enemy->position.x -=
         (float)enemyNode->enemy->velocity * deltaTime;
     enemyNode->enemy->collider.x = enemyNode->enemy->position.x;
   }
@@ -56,6 +55,7 @@ void UpdateGameScreen(void) {
     enemy->position = (Vector2){800, 400};
     enemy->collider =
         (Rectangle){enemy->position.x, enemy->position.y, 40, enemyRaw->height};
+    enemy->velocity = enemyRaw->velocity;
 
     enqueue(enemyQueue, enemy);
     currentEnemyIndex++;
