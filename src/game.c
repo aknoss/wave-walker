@@ -67,10 +67,6 @@ void UpdateGameScreen(void) {
     lastTrigger = timeElapsed;
   }
 
-  if (CheckCollisionRecs(ground.collider, player.collider)) {
-    isJumping = false;
-  }
-
   if (!isJumping && IsKeyDown(KEY_SPACE)) {
     player.velocity = 2000;
     isJumping = true;
@@ -84,6 +80,11 @@ void UpdateGameScreen(void) {
   if (isJumping) {
     player.position.y += 600 * deltaTime;
   }
+
+  if (CheckCollisionRecs(ground.collider, player.collider)) {
+    isJumping = false;
+  }
+
   MoveEnemies(enemyQueue, deltaTime);
   UpdatePlayerCollider(&player);
 }
