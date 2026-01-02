@@ -8,7 +8,7 @@
 static int finishScreen = 0;
 Player player;
 Ground ground;
-bool isPlayerOnGround;
+bool isJumping;
 EnemyQueue *enemyQueue;
 double timeElapsed;
 double lastTrigger = 0;
@@ -19,7 +19,7 @@ void DrawLevel1(void) { DrawRectangleRec(ground.collider, BROWN); }
 
 void InitGameScreen(void) {
   finishScreen = 0;
-  isPlayerOnGround = false;
+  isJumping = true;
   enemyQueue = newQueue();
   currentLevel = &level_1;
 
@@ -68,18 +68,20 @@ void UpdateGameScreen(void) {
   }
 
   if (CheckCollisionRecs(ground.collider, player.collider)) {
-    isPlayerOnGround = true;
-  } else {
-    isPlayerOnGround = false;
+    isJumping = false;
   }
-  if (isPlayerOnGround && IsKeyDown(KEY_SPACE)) {
+
+  if (!isJumping && IsKeyDown(KEY_SPACE)) {
     player.velocity = 2000;
+    isJumping = true;
   }
+
   if (player.velocity > 0) {
     player.position.y -= player.velocity * deltaTime;
     player.velocity -= 3000 * deltaTime;
   }
-  if (!isPlayerOnGround) {
+
+  if (isJumping) {
     player.position.y += 600 * deltaTime;
   }
   MoveEnemies(enemyQueue, deltaTime);
