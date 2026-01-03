@@ -5,12 +5,7 @@
 #include "raylib.h"
 
 Font font = {0};
-static const int screenWidth = 1080;
-static const int screenHeight = 720;
-
-void Initialization(void);
-void GameLoop(void);
-void UpdateDrawFrame(void);
-void Cleanup(void);
+const int screenWidth = 1080;
+const int screenHeight = 720;
 
 #endif // MAIN_H

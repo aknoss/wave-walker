@@ -1,5 +1,10 @@
 #include "main.h"
 
+static void Initialization(void);
+static void GameLoop(void);
+static void UpdateDrawFrame(void);
+static void Cleanup(void);
+
 int main(void) {
   Initialization();
 
@@ -9,21 +14,21 @@ int main(void) {
   return 0;
 }
 
-void Initialization(void) {
+static void Initialization(void) {
   SetTraceLogLevel(LOG_DEBUG);
+  SetTargetFPS(60);
+
   InitWindow(screenWidth, screenHeight, "wave-walker");
   InitGameScreen();
 }
 
-void GameLoop(void) {
-  SetTargetFPS(60);
-
+static void GameLoop(void) {
   while (!WindowShouldClose()) {
     UpdateDrawFrame();
   }
 }
 
-void UpdateDrawFrame(void) {
+static void UpdateDrawFrame(void) {
   UpdateGameScreen();
   BeginDrawing();
   ClearBackground(RAYWHITE);
@@ -31,7 +36,7 @@ void UpdateDrawFrame(void) {
   EndDrawing();
 }
 
-void Cleanup(void) {
+static void Cleanup(void) {
   UnloadGameScreen();
   UnloadFont(font);
   CloseWindow();
