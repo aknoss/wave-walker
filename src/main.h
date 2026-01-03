@@ -5,7 +5,8 @@
 #include "raylib.h"
 
 Font font = {0};
-const int screenWidth = 1080;
-const int screenHeight = 720;
+const char *GAME_NAME = "Wave Walker";
+const int SCREEN_WIDTH = 1080;
+const int SCREEN_HEIGHT = 720;
 
 #endif // MAIN_H

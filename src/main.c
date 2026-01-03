@@ -1,4 +1,5 @@
 #include "main.h"
+#include "raylib.h"
 
 static void Initialization(void);
 static void GameLoop(void);
@@ -17,8 +18,7 @@ int main(void) {
 static void Initialization(void) {
   SetTraceLogLevel(LOG_DEBUG);
   SetTargetFPS(60);
-
-  InitWindow(screenWidth, screenHeight, "wave-walker");
+  InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, GAME_NAME);
   InitGameScreen();
 }
 
