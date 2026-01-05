@@ -1,19 +1,20 @@
 RAYLIB_VERSION = 5.0
 
-all: raylib game
+all: raylib dev
 
 raylib:
 	git clone https://github.com/raysan5/raylib vendor/raylib | true 
 	cd vendor/raylib && git checkout $(RAYLIB_VERSION)
 	$(MAKE) -C vendor/raylib/src PLATFORM=PLATFORM_DESKTOP GLFW_LINUX_ENABLE_WAYLAND=TRUE
 
-game:
+dev:
 	mkdir -p build
 	gcc src/*.c src/**/*.c \
 		-Ivendor/raylib/src \
 		-Lvendor/raylib/src \
 		-lraylib \
 		-lGL -lm -lpthread -ldl -lrt -lX11 \
+		-g -O0 -Wall -Wextra \
 		-o build/game
 
 clean:

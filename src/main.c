@@ -3,7 +3,6 @@
 
 static void Initialization(void);
 static void GameLoop(void);
-static void UpdateDrawFrame(void);
 static void Cleanup(void);
 
 int main(void) {
