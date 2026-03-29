@@ -7,8 +7,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-extern float GetDeltaTime(void);
-
 static int finishScreen = 0;
 Player player;
 Ground ground;

@@ -8,6 +8,8 @@
 extern SDL_Window *window;
 extern SDL_Renderer *renderer;
 
+float GetDeltaTime(void);
+
 typedef struct {
   bool isRunning;
   SceneId currentSceneId;

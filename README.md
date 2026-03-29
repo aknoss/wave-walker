@@ -1,6 +1,6 @@
 ## Wave Walker
 
-Wave Walker is a platform game inspired by the T-Rex game. Made in C and raylib.
+Wave Walker is a platform game inspired by the T-Rex game. Made in C and SDL3.
 
 ### Build
 

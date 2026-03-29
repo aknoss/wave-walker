@@ -53,7 +53,7 @@ static void Initialization(GameState *game) {
 static void GameLoop(void) {
   UpdateGameScreen();
 
-  SDL_SetRenderDrawColor(renderer, 245, 245, 245, 255); // RAYWHITE equivalent
+  SDL_SetRenderDrawColor(renderer, 245, 245, 245, 255);
   SDL_RenderClear(renderer);
   DrawGameScreen();
   SDL_RenderPresent(renderer);
