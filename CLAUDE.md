@@ -16,6 +16,8 @@ make clean      # remove build artifacts
 
 Requires SDL3 installed on the system.
 
+Run `clang-format -i <file>` on every changed file before committing.
+
 ## Architecture
 
 - **main.c / main.h** — Entry point, SDL3 window/renderer setup, event loop, delta time calculation. Owns the global `window`, `renderer`, and frame loop.

@@ -1,4 +1,5 @@
 #include "game.h"
+#include "constants.h"
 #include "enemy.h"
 #include "levels/level.h"
 #include "main.h"

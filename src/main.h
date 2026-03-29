@@ -7,9 +7,6 @@
 
 extern SDL_Window *window;
 extern SDL_Renderer *renderer;
-extern const char *GAME_NAME;
-extern const int SCREEN_WIDTH;
-extern const int SCREEN_HEIGHT;
 
 typedef struct {
   bool isRunning;

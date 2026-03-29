@@ -1,10 +1,8 @@
 #include "main.h"
+#include "constants.h"
 #include "game.h"
 #include <SDL3/SDL.h>
 
-const char *GAME_NAME = "Wave Walker";
-const int SCREEN_WIDTH = 1080;
-const int SCREEN_HEIGHT = 720;
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 
