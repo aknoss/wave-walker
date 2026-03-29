@@ -1,12 +1,12 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "game.h"
+#include <SDL3/SDL.h>
 #include <stdbool.h>
 
 typedef struct {
-  Vec2 position;
-  Rect collider;
+  SDL_FPoint position;
+  SDL_FRect collider;
   float velocity;
 } Enemy;
 

@@ -18,16 +18,9 @@ double lastTrigger = 0;
 Level *currentLevel;
 int currentEnemyIndex = 0;
 
-static bool RectsOverlap(Rect a, Rect b) {
-  return a.x < b.x + b.width && a.x + a.width > b.x &&
-         a.y < b.y + b.height && a.y + a.height > b.y;
-}
-
 void DrawLevel1(void) {
-  SDL_FRect r = {ground.collider.x, ground.collider.y, ground.collider.width,
-                 ground.collider.height};
   SDL_SetRenderDrawColor(renderer, 139, 69, 19, 255); // BROWN
-  SDL_RenderFillRect(renderer, &r);
+  SDL_RenderFillRect(renderer, &ground.collider);
 }
 
 void InitGameScreen(void) {
@@ -36,9 +29,9 @@ void InitGameScreen(void) {
   enemyQueue = newQueue();
   currentLevel = &level_1;
 
-  player.position = (Vec2){100, 400};
-  player.collider = (Rect){player.position.x, player.position.y, 40, 80};
-  ground.collider = (Rect){0, SCREEN_HEIGHT - 40, SCREEN_WIDTH, 40};
+  player.position = (SDL_FPoint){100, 400};
+  player.collider = (SDL_FRect){player.position.x, player.position.y, 40, 80};
+  ground.collider = (SDL_FRect){0, SCREEN_HEIGHT - 40, SCREEN_WIDTH, 40};
 }
 
 void UpdatePlayerCollider(Player *player) {
@@ -69,9 +62,9 @@ void UpdateGameScreen(void) {
     EnemyRaw *enemyRaw = &currentLevel->enemies[currentEnemyIndex];
     Enemy *enemy = (Enemy *)malloc(sizeof(Enemy));
 
-    enemy->position = (Vec2){800, 400};
+    enemy->position = (SDL_FPoint){800, 400};
     enemy->collider =
-        (Rect){enemy->position.x, enemy->position.y, 40, enemyRaw->height};
+        (SDL_FRect){enemy->position.x, enemy->position.y, 40, enemyRaw->height};
     enemy->velocity = enemyRaw->velocity;
 
     enqueue(enemyQueue, enemy);
@@ -97,10 +90,10 @@ void UpdateGameScreen(void) {
 
   UpdatePlayerCollider(&player);
 
-  if (RectsOverlap(ground.collider, player.collider)) {
+  if (SDL_HasRectIntersectionFloat(&ground.collider, &player.collider)) {
     // Rollback player position to contact with ground
     player.position.y =
-        ground.collider.y - ground.collider.height - player.collider.height / 2;
+        ground.collider.y - ground.collider.h - player.collider.h / 2;
     UpdatePlayerCollider(&player);
     isJumping = false;
   }
@@ -111,18 +104,13 @@ void UpdateGameScreen(void) {
 void DrawGameScreen(void) {
   DrawLevel1();
 
-  SDL_FRect playerRect = {player.collider.x, player.collider.y,
-                          player.collider.width, player.collider.height};
   SDL_SetRenderDrawColor(renderer, 230, 41, 55, 255); // RED
-  SDL_RenderFillRect(renderer, &playerRect);
+  SDL_RenderFillRect(renderer, &player.collider);
 
   for (EnemyNode *enemyNode = enemyQueue->front; enemyNode != NULL;
        enemyNode = enemyNode->next) {
-    SDL_FRect enemyRect = {
-        enemyNode->enemy->collider.x, enemyNode->enemy->collider.y,
-        enemyNode->enemy->collider.width, enemyNode->enemy->collider.height};
     SDL_SetRenderDrawColor(renderer, 0, 121, 241, 255); // BLUE
-    SDL_RenderFillRect(renderer, &enemyRect);
+    SDL_RenderFillRect(renderer, &enemyNode->enemy->collider);
   }
 }
 

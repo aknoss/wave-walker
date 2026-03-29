@@ -5,25 +5,13 @@
 #include "scene.h"
 
 typedef struct {
-  float x;
-  float y;
-} Vec2;
-
-typedef struct {
-  float x;
-  float y;
-  float width;
-  float height;
-} Rect;
-
-typedef struct {
-  Vec2 position;
-  Rect collider;
+  SDL_FPoint position;
+  SDL_FRect collider;
   int velocity;
 } Player;
 
 typedef struct {
-  Rect collider;
+  SDL_FRect collider;
 } Ground;
 
 Scene GameSceneConstructor(void);
