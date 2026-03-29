@@ -1,18 +1,32 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "raylib.h"
+#include <SDL3/SDL.h>
+#include "scene.h"
 
 typedef struct {
-  Vector2 position;
-  Rectangle collider;
+  float x;
+  float y;
+} Vec2;
+
+typedef struct {
+  float x;
+  float y;
+  float width;
+  float height;
+} Rect;
+
+typedef struct {
+  Vec2 position;
+  Rect collider;
   int velocity;
 } Player;
 
 typedef struct {
-  Rectangle collider;
+  Rect collider;
 } Ground;
-extern Font font;
+
+Scene GameSceneConstructor(void);
 
 void InitGameScreen(void);
 void UpdateGameScreen(void);

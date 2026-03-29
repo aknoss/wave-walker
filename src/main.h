@@ -1,21 +1,19 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include "raylib.h"
+#include <SDL3/SDL.h>
+#include <stdbool.h>
+#include "scene.h"
 
-extern Font font;
+extern SDL_Window *window;
+extern SDL_Renderer *renderer;
 extern const char *GAME_NAME;
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
 
-extern bool isGameRunning;
-
-enum Scene {
-  MENU,
-  SELECT_LEVEL,
-  GAME,
-};
-
-extern enum Scene currentScene;
+typedef struct {
+  bool isRunning;
+  SceneId currentSceneId;
+} GameState;
 
 #endif // MAIN_H

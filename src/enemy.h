@@ -1,11 +1,12 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "raylib.h"
+#include "game.h"
+#include <stdbool.h>
 
 typedef struct {
-  Vector2 position;
-  Rectangle collider;
+  Vec2 position;
+  Rect collider;
   float velocity;
 } Enemy;
 
@@ -26,4 +27,4 @@ bool isQueueEmpty(EnemyQueue *);
 void enqueue(EnemyQueue *, Enemy *);
 Enemy *dequeue(EnemyQueue *);
 
-#endif // ENEMY.H
+#endif // ENEMY_H

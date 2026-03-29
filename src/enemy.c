@@ -1,5 +1,5 @@
 #include "enemy.h"
-#include "raylib.h"
+#include <SDL3/SDL.h>
 #include <stdlib.h>
 
 EnemyQueue *newQueue(void) {
@@ -33,7 +33,7 @@ void enqueue(EnemyQueue *q, Enemy *enemy) {
 
 Enemy *dequeue(EnemyQueue *q) {
   if (isQueueEmpty(q)) {
-    TraceLog(LOG_ERROR, "Error: queue is empty. Cannot dequeue.\n");
+    SDL_Log("Error: queue is empty. Cannot dequeue.");
     Enemy *errorEnemy = {0};
     return errorEnemy;
   }

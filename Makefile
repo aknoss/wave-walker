@@ -1,21 +1,16 @@
-RAYLIB_VERSION = 5.0
+CC = gcc
+CFLAGS = -g -O0 -Wall -Wextra
+LDFLAGS = -lSDL3 -lm
 
-all: raylib dev
+SRCS = $(wildcard src/*.c src/**/*.c)
+OBJS = $(patsubst src/%.c,build/%.o,$(SRCS))
 
-raylib:
-	git clone https://github.com/raysan5/raylib vendor/raylib | true 
-	cd vendor/raylib && git checkout $(RAYLIB_VERSION)
-	$(MAKE) -C vendor/raylib/src PLATFORM=PLATFORM_DESKTOP GLFW_LINUX_ENABLE_WAYLAND=TRUE
+build/game: $(OBJS)
+	$(CC) $(OBJS) $(LDFLAGS) -o $@
 
-dev:
-	mkdir -p build
-	gcc src/*.c src/**/*.c \
-		-Ivendor/raylib/src \
-		-Lvendor/raylib/src \
-		-lraylib \
-		-lGL -lm -lpthread -ldl -lrt -lX11 \
-		-g -O0 -Wall -Wextra \
-		-o build/game
+build/%.o: src/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf build vendor
+	rm -rf build

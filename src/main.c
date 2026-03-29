@@ -1,53 +1,69 @@
 #include "main.h"
 #include "game.h"
-#include "raylib.h"
+#include <SDL3/SDL.h>
 
 const char *GAME_NAME = "Wave Walker";
 const int SCREEN_WIDTH = 1080;
 const int SCREEN_HEIGHT = 720;
-Font font = {0};
+SDL_Window *window = NULL;
+SDL_Renderer *renderer = NULL;
 
-static void Initialization(void);
+static Uint64 lastTick = 0;
+static float deltaTime = 0.0f;
+
+static void Initialization(GameState *);
 static void GameLoop(void);
 static void Cleanup(void);
 
-bool isGameRunning = true;
-enum Scene {
-  MENU,
-  SELECT_LEVEL,
-  GAME,
-};
+float GetDeltaTime(void) { return deltaTime; }
 
 int main(void) {
-  Initialization();
+  GameState game = {0};
 
-  while (isGameRunning) {
-    isGameRunning = !WindowShouldClose();
+  Initialization(&game);
+  InitGameScreen();
+
+  while (game.isRunning) {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+      if (event.type == SDL_EVENT_QUIT) {
+        game.isRunning = false;
+      }
+    }
+
+    Uint64 now = SDL_GetPerformanceCounter();
+    deltaTime = (float)(now - lastTick) / (float)SDL_GetPerformanceFrequency();
+    lastTick = now;
+
     GameLoop();
+
+    SDL_Delay(16); // ~60 FPS
   }
 
   Cleanup();
   return 0;
 }
 
-static void Initialization(void) {
-  SetTraceLogLevel(LOG_DEBUG);
-  SetTargetFPS(60);
-  InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, GAME_NAME);
-  InitGameScreen();
+static void Initialization(GameState *game) {
+  SDL_Init(SDL_INIT_VIDEO);
+  window = SDL_CreateWindow(GAME_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+  renderer = SDL_CreateRenderer(window, NULL);
+  lastTick = SDL_GetPerformanceCounter();
+  *game = (GameState){.isRunning = true, .currentSceneId = SCENE_MENU};
 }
 
 static void GameLoop(void) {
   UpdateGameScreen();
 
-  BeginDrawing();
-  ClearBackground(RAYWHITE);
+  SDL_SetRenderDrawColor(renderer, 245, 245, 245, 255); // RAYWHITE equivalent
+  SDL_RenderClear(renderer);
   DrawGameScreen();
-  EndDrawing();
+  SDL_RenderPresent(renderer);
 }
 
 static void Cleanup(void) {
   UnloadGameScreen();
-  UnloadFont(font);
-  CloseWindow();
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
+  SDL_Quit();
 }
